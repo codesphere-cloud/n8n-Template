@@ -9,5 +9,5 @@ test:
 run:
   steps:
     - name: deploy
-      command: sudo n install 18.12.1 && N8N_USER_FOLDER=/home/user/app/ N8N_PORT=3000 N8N_PROTOCOL=https
-        ./node_modules/n8n/bin/n8n start --tunnel
+      command: sudo n install 20.0.0 && N8N_USER_FOLDER=/home/user/app/ N8N_PORT=3000
+        N8N_PROTOCOL=https ./node_modules/n8n/bin/n8n start --tunnel
