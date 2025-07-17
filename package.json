@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "cache-manager": "^5.2.4",
-    "n8n": "^1.80.3"
+    "n8n": "^1.102.4"
   }
 }
