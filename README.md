@@ -1,10 +1,21 @@
 # Instruction for deployment on Codesphere
 
-1) create a new workspace
-   insert this github link to clone this repo directly in your workspace: https://github.com/Datata1/deploy.n8n.codesphere
+1. Create a new workspace: 
+- Use the HTTP url of this repo to create a New Workspace in Codesphere
 
-2) go to the CI-Pipeline UI:
-   run the prepare-stage (this might take a couple minutes)
-   when the preparestage is ready (when it is green) run the run stage
+2. Go to "CI & Deploy": 
+- Run the Prepare Stage (this might take a couple minutes)
+- When the Prepare Stage is ready, start the Run Stage
 
-3) in the top right corner you can see 'open deployment'. cliuck this button and you can log in to n8n.
+3. Use 'Open Deployment' in the top right corner to open N8N.
+
+## Bonus: Ollama Model hosted on Codesphere
+
+Together with N8N, this template deploys an Ollama `qwen` model hosted on Codesphere. 
+To use it in N8N, add an `Ollama` node (from the AI category) and configure it: 
+
+```
+# Replace WORKSPACE_ID with your current Workspace ID!
+Base URL: http://ws-server-WORKSPACE_ID-ollama-service.workspaces.svc.cluster.local:3000
+API Key: <none>
+```

@@ -1,13 +1,41 @@
+schemaVersion: v0.2
 prepare:
   steps:
-    - name: install dependency
-      command: npm install cache-manager@5.2.4 --save
-    - name: install n8n
-      command: npm install n8n
+    - name: install Node.js 24
+      command: nix-env -iA nixpkgs.nodejs_24
+    - name: install Ollama
+      command: nix-env -iA nixpkgs.ollama nixpkgs.process-compose
+    - name: install dependencies
+      command: npm install
 test:
   steps: []
 run:
-  steps:
-    - name: deploy
-      command: sudo n install 20.0.0 && N8N_USER_FOLDER=/home/user/app/ N8N_PORT=3000
-        N8N_PROTOCOL=https ./node_modules/n8n/bin/n8n start --tunnel
+  n8n-frontend:
+    steps:
+      - name: n8n start
+        command: N8N_USER_FOLDER=/home/user/app/ N8N_PROTOCOL=https N8N_PORT=3000
+          N8N_HOST=$WORKSPACE_DEV_DOMAIN ./node_modules/n8n/bin/n8n start
+          --tunnel
+    plan: 202
+    replicas: 1
+    network:
+      ports:
+        - port: 3000
+          isPublic: false
+      paths:
+        - port: 3000
+          path: /
+          stripPath: false
+  ollama-service:
+    steps:
+      - command: process-compose -t=False -f process-compose.models.yaml
+    plan: 302
+    replicas: 1
+    network:
+      ports:
+        - port: 3000
+          isPublic: false
+      paths:
+        - port: 3000
+          path: /model
+          stripPath: true
