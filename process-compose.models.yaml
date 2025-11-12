@@ -13,3 +13,4 @@ processes:
     depends_on:
       ollama_serve:
         condition: process_log_ready
+        
