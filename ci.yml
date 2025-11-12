@@ -16,7 +16,7 @@ run:
         command: N8N_USER_FOLDER=/home/user/app/ N8N_PROTOCOL=https N8N_PORT=3000
           N8N_HOST=$WORKSPACE_DEV_DOMAIN ./node_modules/n8n/bin/n8n start
           --tunnel
-    plan: 202
+    plan: 8
     replicas: 1
     network:
       ports:
@@ -29,7 +29,7 @@ run:
   ollama-service:
     steps:
       - command: process-compose -t=False -f process-compose.models.yaml
-    plan: 302
+    plan: 9
     replicas: 1
     network:
       ports:
