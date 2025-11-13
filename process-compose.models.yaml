@@ -12,4 +12,4 @@ processes:
     command: ollama pull qwen3:0.6b
     depends_on:
       ollama_serve:
-        condition: process_log_ready
+        condition: process_log_ready     
