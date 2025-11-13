@@ -1,0 +1,15 @@
+version: "0.5"
+
+processes:
+  ollama_serve:
+    environment:
+      - "OLLAMA_HOST=0.0.0.0:3000"
+    command: ollama serve
+    ready_log_line: "GET"
+  ollama_pull:
+    environment:
+      - "OLLAMA_HOST=0.0.0.0:3000"
+    command: ollama pull qwen3:0.6b
+    depends_on:
+      ollama_serve:
+        condition: process_log_ready     
