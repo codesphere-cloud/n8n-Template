@@ -13,10 +13,10 @@ run:
   n8n-frontend:
     steps:
       - name: n8n start
-        command: N8N_USER_FOLDER=/home/user/app/ N8N_PROTOCOL=https N8N_PORT=3000
-          N8N_HOST=$WORKSPACE_DEV_DOMAIN ./node_modules/n8n/bin/n8n start
-          --tunnel
-    plan: 8
+        command: N8N_USER_FOLDER=/home/user/app/ N8N_PROTOCOL=http N8N_PORT=3000
+          N8N_HOST=ws-server-$WORKSPACE_ID-n8n-frontend.workspaces.svc.cluster.local
+          ./node_modules/n8n/bin/n8n start
+    plan: 202
     replicas: 1
     network:
       ports:
@@ -29,7 +29,7 @@ run:
   ollama-service:
     steps:
       - command: process-compose -t=False -f process-compose.models.yaml
-    plan: 9
+    plan: 302
     replicas: 1
     network:
       ports:
